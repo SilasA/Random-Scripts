@@ -2,16 +2,12 @@
 # f(x) on interval [x, y] with n number of rectangles with
 # p end point
 
-import sys
-
-x = 0
-y = 0
-n = 0
+import math
 
 def f(x):
-    return -1 # function here
+    return 15 / x # function here
 
-def calc(x, y, n, p):
+def estimate(x, y, n, p):
     rectWidth = (y - x) / n
     itr = rectWidth * p + x
     areaAccum = 0.0
@@ -25,10 +21,10 @@ y = float(input("Upper Bound: "))
 n = int(input("Number of Rectangles: "))
 
 print("Left endpoint")
-print(calc(x, y, n, 0))
+print(estimate(x, y, n, 0))
 
 print("Middle endpoint")
-print(calc(x, y, n, 0.5))
+print(estimate(x, y, n, 0.5))
 
 print("Right endpoint")
-print(calc(x, y, n, 1))
+print(estimate(x, y, n, 1))
