@@ -75,7 +75,6 @@ int main(int argc, char** argv) {
     while (velocity < tv * .9) {
         forceDrag = .5 * density * area * dragCoefficient * velocity * velocity;
         forceNet = forceGrav - forceDrag;
-        printf("NET: %g\n", forceNet);
         acceleration = forceNet / mass;
         displacement += velocity * timestep;
         velocity += acceleration * timestep;
@@ -86,7 +85,8 @@ int main(int argc, char** argv) {
 }
 
 void usage() {
-    
+    printf("Terminal Velocity Script - calculate stats at 90%% terminal velocity.\n");
+    printf("No command line usage\n");
 }
 
 void print_stats(double time, double termV, double velocity, double displacement, double drag, double grav) {
