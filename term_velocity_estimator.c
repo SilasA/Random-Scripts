@@ -1,6 +1,12 @@
+/**
+ * Terminal Velocity Estimator.
+ *
+ * Authors:
+ *
+ * Compiled via clang term_velocity_estimator.c -lm
+ */
 #include <stdio.h>
 #include <string.h>
-//#include <errno.h>
 #include <math.h>
 
 #define PROMPT
@@ -19,13 +25,15 @@ void usage();
 /**
  * Prints out the final stats of the estimation
  */
-void print_stats(double time, double termV, double velocity, double displacement, double drag, double grav);
+void print_stats(
+        double time,
+        double termV,
+        double velocity,
+        double displacement,
+        double drag,
+        double grav);
 
 int main(int argc, char** argv) {
-    /*if (argc < 6) {
-        usage();
-        return 22; // EINVAL
-    }*/
 
     // Kinematics
     double displacement = 0;
@@ -46,7 +54,6 @@ int main(int argc, char** argv) {
     double forceGrav;
     double forceNet;
 
-#ifdef PROMPT
     printf("Enter object's mass (g):\n");
     scanf("%lf", &mass);
     printf("Enter object's diameter (in):\n");
@@ -57,9 +64,6 @@ int main(int argc, char** argv) {
     scanf("%lf", &dragCoefficient);
     printf("Enter estimation time step (ms):\n");
     scanf("%lf", &timestep);
-#else
-    
-#endif // PROMPT
 
     // Convert units and calculate
     mass /= 1000; // g to kg
@@ -89,12 +93,19 @@ void usage() {
     printf("No command line usage\n");
 }
 
-void print_stats(double time, double termV, double velocity, double displacement, double drag, double grav) {
+void print_stats(
+        double time,
+        double termV,
+        double velocity, 
+        double displacement,
+        double drag,
+        double grav) {
     printf("--90%% Terminal Velocity----------------------------------\n");
     printf("Calculated Terminal V: %g  90%%: %g\n", termV, termV * .9);
-    printf("Estimated 90%% Terminal V: %g\n", velocity);
+    printf("Estimated 90%% Terminal V: %g  Error: %g%%\n",
+            velocity, fabs(termV * .9 - velocity) / (termV * .9) * 100);
     printf("Force of Drag: %g  Force of Gravity: %g\n", drag, grav);
-    printf("-Time: %g  Distance: %g\n", time, displacement);
+    printf("-Time: %g s Distance: %g m\n", time, displacement);
     printf("---------------------------------------------------------\n");
 }
 
